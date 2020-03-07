@@ -13,28 +13,10 @@ from OpenGL.GL import *
 import sys
 import math
 
-name = 'Teapots rotating'
-rotating = 0
-translate = 0
-radius = 3
-# glPushMatrix()
-# glMultMatrixd(get_rotate_axis_x_matrix(45))
-# glutWireTeapot(1)
-# glPopMatrix()
+name = 'Own implementation of lookAt'
 
 
-def get_rotate_axis_x_matrix(deg):
-    sin = math.degrees(math.sin(deg))
-    cos = math.degrees(math.cos(deg))
-    # Using columns
-    m = [
-        [1, 0, 0, 0],
-        [0, cos, sin, 0],
-        [0, -sin, cos, 0],
-        [0, 0, 0, 1]
-    ]
-    return m
-
+def own_lookAt():
 
 def display():
     global rotating
@@ -51,39 +33,8 @@ def display():
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     gluLookAt(7, 7, 7, 0, radius, 2, 0, 1, 0)
+
     # ***********************************
-
-    # Print axis
-    glPushMatrix()
-    glBegin(GL_LINES)
-
-    glColor3f(0, 1, 0)  # y=3 axis
-    glVertex3f(0, radius, -100)
-    glVertex3f(0, radius, 100)
-
-    glEnd()
-    glPopMatrix()
-
-    glPushMatrix()
-    glColor3f(0.5, 0, 1)  # purple teapot
-    x = (radius * math.cos((translate - 90) * math.pi / 180))
-    y = radius + (radius * math.sin((translate - 90) * math.pi / 180))
-    glTranslatef(x, y, 0)
-    glRotatef(rotating, 0, 0, 1)
-
-    glutWireTeapot(1.0)
-    glPopMatrix()
-
-    glPushMatrix()
-    glColor3f(1, 1, 0)  # yellow teapot
-    glTranslatef(x, y, 4)
-    glutWireTeapot(1.0)
-    glPopMatrix()
-
-    rotating += 0.2
-    translate += 0.2
-    # **********************************
-    glutSwapBuffers()  # Ordena el dibujado
 
 
 def main():
